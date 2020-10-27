@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
 #if DEBUG == 1
 	/* DEBUG array with 40 entries */
-	const unsigned ROOT_LEN = 39;
+	const unsigned ROOT_LEN = 40;
 #else
 	/* Default with 1.000.000 entries */
 	/* Or configure with compiler's command line (-DN=N) */
