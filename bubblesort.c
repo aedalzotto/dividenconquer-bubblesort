@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 		MPI_Recv(values, leaf_len + is_right_child, MPI_INT, parent, 0, MPI_COMM_WORLD, &status);
 
 		/* Update this node number of elements */
-		MPI_Get_count(&status, MPI_INT, &leaf_len);
+		MPI_Get_count(&status, MPI_INT, (int *)&leaf_len);
 	}
 
 	/* Check if number of elements in this node is odd */
@@ -205,7 +205,7 @@ void interleave(int *src, int *dst, int length)
 	int ia = 0;
 	int ib = length / 2;
 	for(int i = 0; i < length; i++){
-		if(ia < length / 2 && src[ia] <= src[ib] || ib == length)
+		if((ia < length / 2 && src[ia] <= src[ib]) || ib == length)
 			dst[i] = src[ia++];
 		else
 			dst[i] = src[ib++];
