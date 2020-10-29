@@ -179,7 +179,7 @@ unsigned last_pow_2(unsigned x)
     x |= (x >> 4);
     x |= (x >> 8);
     x |= (x >> 16);
-	x |= (x >> 32); /* Support up to 64 bit */
+	// x |= (x >> 32); /* Support up to 64 bit */
     return x - (x >> 1);
 }
 
