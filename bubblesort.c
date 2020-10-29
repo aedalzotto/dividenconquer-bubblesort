@@ -5,7 +5,7 @@
 
 /* Define DEBUG by compiler's command line (-DDEBUG=1) */
 #ifndef DEBUG
-	#define DEBUG 1
+	#define DEBUG 0
 #endif
 
 unsigned last_pow_2(unsigned x);
