@@ -20,6 +20,11 @@ run with array size of 40.
 $ mpicc bubblesort.c -o bubblesort_debug -std=c99 -O3 -DDEBUG=1
 ```
 
+To run with qsort instead of bubblesort, define in compiler's command line.
+```
+$ mpicc bubblesort.c -o bubblesort_debug -std=c99 -O3 -DQSORT=1
+```
+
 ## Running
 
 If you run with 1 processor, the result will be a sequential sorting. Please use

@@ -8,11 +8,19 @@
 	#define DEBUG 0
 #endif
 
+/* If should use qsort instead of bubblesort (-DQSORT=1) */
+#ifndef QSORT
+	#define QSORT 0
+#endif
+
 unsigned last_pow_2(unsigned x);
 void bubblesort(int *array, const int SIZE);
 void interleave(int *src_a, int len_a, int *src_b, int len_b, int *dst, int length);
 #if DEBUG == 1
 void print_array(int *array, int len);
+#endif
+#if QSORT == 1
+int cmpfunc(const void *a, const void *b);
 #endif
 
 int main(int argc, char *argv[])
@@ -169,7 +177,11 @@ int main(int argc, char *argv[])
 		#if DEBUG == 1
 			printf("P%d: Sorting array\n", rank);
 		#endif
-		bubblesort(values, node_len);
+		#if QSORT == 1
+			qsort(values, node_len, sizeof(int), cmpfunc);
+		#else
+			bubblesort(values, node_len);
+		#endif
 	}
 
 	if(rank == 0){
@@ -243,5 +255,12 @@ void print_array(int *array, int len)
 	for(int i = 0; i < len; i++)
 		printf("%d ", array[i]);
 	printf("\n");
+}
+#endif
+
+#if QSORT == 1
+int cmpfunc(const void *a, const void *b)
+{
+	return *(int*)a - *(int*)b;
 }
 #endif
