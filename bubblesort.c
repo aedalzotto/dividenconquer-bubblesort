@@ -44,30 +44,30 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-#if DEBUG == 1
-	/* DEBUG array with 40 entries */
-	const unsigned ROOT_LEN = 40;
-#else
+
 	/* Default with 1.000.000 entries */
 	/* Or configure with compiler's command line (-DN=N) */
-	#ifndef N
-		const unsigned ROOT_LEN = 1000000;
+#ifndef N
+	#if DEBUG == 1
+		/* DEBUG array with 40 entries */
+		const unsigned ROOT_LEN = 40;
 	#else
-		const unsigned ROOT_LEN = N;
+		const unsigned ROOT_LEN = 1000000;
 	#endif
+#else
+	const unsigned ROOT_LEN = N;
 #endif
 
 	MPI_Status status;
 	int *values = NULL;
-	int node_len;
-	int parent;
+	int node_len = ROOT_LEN;
+	int parent = -1;
 
 #if DEBUG == 0
 	double then = 0;
 #endif
 	if(rank == 0){
 		/* Root: initial producer */
-		node_len = ROOT_LEN;
 
 		/* Allocate memory for the whole array */
 		values = malloc(node_len*sizeof(int));

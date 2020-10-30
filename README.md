@@ -14,8 +14,8 @@ To choose different array size (N), define in compiler's command line
 $ mpicc bubblesort.c -o bubblesort -std=c99 -O3 -DN=500000
 ```
 
-To compile in DEBUG mode, also define in compiler's command line. This will always
-run with array size of 40.
+To compile in DEBUG mode, also define in compiler's command line. The default 
+array size for this mode is 40.
 ```
 $ mpicc bubblesort.c -o bubblesort_debug -std=c99 -O3 -DDEBUG=1
 ```
