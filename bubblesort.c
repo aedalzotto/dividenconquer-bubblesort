@@ -13,9 +13,8 @@
 	#define QSORT 0
 #endif
 
-unsigned last_pow_2(unsigned x);
 void bubblesort(int *array, const int SIZE);
-void interleave(int *src_a, int len_a, int *src_b, int len_b, int *dst, int length);
+void combine(int *src_a, int len_a, int *src_b, int len_b, int *dst, int length);
 #if DEBUG == 1
 void print_array(int *array, int len);
 #endif
@@ -165,8 +164,8 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		/* Place back the message in the array (interleaved) */
-		interleave(received[0], half_len, received[1], node_len - half_len, values, node_len);
+		/* Place back the message in the array (combined) */
+		combine(received[0], half_len, received[1], node_len - half_len, values, node_len);
 
 		for(int i = 0; i < 2; i++){
 			free(received[i]);
@@ -207,17 +206,6 @@ int main(int argc, char *argv[])
 	MPI_Finalize();
 }
 
-unsigned last_pow_2(unsigned x)
-{
-	x |= (x >> 1);
-    x |= (x >> 2);
-    x |= (x >> 4);
-    x |= (x >> 8);
-    x |= (x >> 16);
-	// x |= (x >> 32); /* Support up to 64 bit */
-    return x - (x >> 1);
-}
-
 void bubblesort(int *array, const int SIZE)
 {
 	/* Sort the array: bubblesort */
@@ -235,7 +223,7 @@ void bubblesort(int *array, const int SIZE)
 	}
 }
 
-void interleave(int *src_a, int len_a, int *src_b, int len_b, int *dst, int length)
+void combine(int *src_a, int len_a, int *src_b, int len_b, int *dst, int length)
 {
 	int ia = 0;
 	int ib = 0;
